@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap');
+
+:root {
+  /* Color Palette */
+  --background-primary: #FFFFFF;
+  --background-secondary: #CCCCCC;
+  --text-charcoal: #545454;
+  --text-dark-gray: #8f8d8d;
+  --text-medium-gray: #444444;
+  --border-light-gray: #CCCCCC;
+  --input-background: #F5F5F5;
+
+  /* Typography */
+  --font-heading-primary: 'Bebas Neue', cursive;
+  --font-heading-secondary: 'Montserrat', sans-serif;
+  --font-body: 'Open Sans', sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-primary);
+  color: var(--text-medium-gray);
+  font-size: 18px;
+  line-height: 1.6;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading-secondary);
+  color: var(--text-charcoal);
+  font-weight: 700;
+}
+
+h1 {
+  font-family: var(--font-heading-primary);
+  font-size: 48px;
+}
+h2 { font-size: 32px; }
+
+a {
+  color: var(--text-charcoal);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--text-dark-gray);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 32px;
+  color: var(--text-charcoal);
+  margin-bottom: 50px;
+  font-family: var(--font-heading-secondary);
+}
+
+/* --- Scroll-Based Color Inversion --- */
+
+.scrolled {
+  background-color: var(--text-charcoal);
+  color: var(--background-primary);
+}
+
+.scrolled .welcome-section,
+.scrolled .programs-section,
+.scrolled .why-choose-us-section,
+.scrolled .facility-section,
+.scrolled .cta-section,
+.scrolled .instagram-feed-section,
+.scrolled .testimonials-section,
+.scrolled .faq-section,
+.scrolled .contact-us-section,
+.scrolled .kids-program-page,
+.scrolled .kids-hero {
+  background-color: transparent;
+}
+
+.scrolled h1,
+.scrolled h2,
+.scrolled h3,
+.scrolled h4,
+.scrolled h5,
+.scrolled h6,
+.scrolled a,
+.scrolled p,
+.scrolled .section-title,
+.scrolled .welcome-seo-text,
+.scrolled .program-description,
+.scrolled .testimonial-author,
+.scrolled .testimonial-quote,
+.scrolled .faq-question {
+  color: var(--background-primary) !important;
+}
+
+.scrolled .program-card,
+.scrolled .testimonial-card {
+  background-color: #1a1a1a;
+  border-color: #333;
+}
+
+.scrolled .faq-container,
+.scrolled .faq-item {
+  border-color: #333;
+}
+
+.scrolled .contact-form-container input,
+.scrolled .contact-form-container textarea {
+  background-color: #2a2a2a;
+  color: var(--background-primary);
+  border-color: #444;
+}
+
+.scrolled .brush-separator,
+.scrolled .why-choose-us-item:not(:last-child)::after {
+    background-color: #555;
+}

@@ -1,0 +1,36 @@
+/* src/components/GoogleReviewsButton.css */
+
+.google-reviews-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+}
+
+.google-reviews-button:hover {
+  transform: scale(1.05);
+}
+
+.google-reviews-button img {
+  display: block;
+  width: 150px; /* Adjust size as needed */
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .google-reviews-button {
+    bottom: 15px;
+    right: 15px;
+  }
+  .google-reviews-button img {
+    width: 120px; /* Smaller on mobile */
+  }
+}

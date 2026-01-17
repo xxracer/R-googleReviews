@@ -1,0 +1,104 @@
+/* src/components/Testimonials.css */
+
+.testimonials-section {
+  padding: 80px 20px;
+  background-color: var(--background-secondary);
+}
+
+.testimonials-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.testimonial-card {
+  background: var(--background-primary);
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  padding: 40px;
+  text-align: center;
+  margin: 0 10px;
+  /* Provides spacing between slides if multiple are shown */
+}
+
+.testimonial-quote {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-style: italic;
+  font-size: 20px;
+  color: var(--text-charcoal);
+  margin: 0 0 20px 0;
+  line-height: 1.7;
+}
+
+.testimonial-author {
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: var(--text-dark-gray);
+  font-size: 16px;
+}
+
+.testimonial-photo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border: 2px solid var(--text-charcoal);
+}
+
+/* --- Slick Carousel Custom Styles --- */
+.slick-dots li button:before {
+  font-size: 12px;
+  color: var(--text-charcoal);
+  opacity: 0.5;
+}
+
+.slick-dots li.slick-active button:before {
+  color: var(--text-charcoal);
+  opacity: 1;
+}
+
+.slick-prev,
+.slick-next {
+  font-size: 0;
+  /* Hide default text */
+  width: 30px;
+  height: 30px;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-size: 30px;
+  color: var(--text-charcoal);
+  opacity: 0.6;
+}
+
+.slick-prev {
+  left: -40px;
+}
+
+.slick-next {
+  right: -40px;
+}
+
+@media (max-width: 768px) {
+  .testimonials-section {
+    padding: 60px 15px;
+  }
+
+  .testimonial-card {
+    padding: 30px;
+  }
+
+  .testimonial-quote {
+    font-size: 18px;
+  }
+
+  .slick-prev,
+  .slick-next {
+    display: none !important;
+    /* Hide arrows on mobile */
+  }
+}

@@ -1,0 +1,13 @@
+/* src/pages/HomePage.css */
+
+.homepage-container {
+  background-color: var(--background-secondary);
+  position: relative;
+}
+
+/* The WelcomeSection and subsequent sections will scroll over the sticky HeroSection */
+.welcome-section-wrapper {
+  position: relative;
+  z-index: 2; /* Ensure it scrolls over the hero */
+  background-color: var(--background-secondary);
+}

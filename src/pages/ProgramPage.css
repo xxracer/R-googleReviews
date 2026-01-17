@@ -1,0 +1,160 @@
+/* Styling for the redesigned Program pages */
+
+.program-page {
+  background-color: var(--background-primary);
+  color: var(--text-charcoal);
+  padding-top: 80px; /* To account for fixed navbar */
+}
+
+.program-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 100px 20px;
+  background-color: #f1f1f1; /* Light grey background for hero */
+  background-size: cover;
+  background-position: center;
+}
+
+.program-hero-title {
+  font-family: var(--font-heading-primary);
+  font-size: 56px;
+  color: var(--text-charcoal);
+}
+
+.program-intro {
+  max-width: 800px;
+  margin: 60px auto;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.program-intro p {
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.program-details-section {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.program-details-text {
+  flex: 1;
+  min-width: 300px;
+  max-width: 600px;
+}
+
+.program-details-text h2 {
+  font-family: var(--font-heading-secondary);
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.program-details-text ul {
+  list-style: none;
+  padding: 0;
+}
+
+.program-details-text li {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.program-details-image {
+  flex: 1;
+  min-width: 300px;
+  max-width: 500px;
+}
+
+.program-details-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.benefit-item {
+    text-align: center;
+}
+
+.benefit-item h3 {
+    font-family: var(--font-heading-secondary);
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.scrolled .program-page {
+    background-color: var(--text-charcoal);
+    color: var(--background-primary);
+}
+
+.scrolled .program-hero {
+    background-color: #1a1a1a;
+}
+
+.scrolled .program-hero-title,
+.scrolled .program-details-text h2,
+.scrolled .benefit-item h3 {
+    color: var(--background-primary);
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+  .program-hero {
+    padding: 60px 20px;
+  }
+
+  .program-hero-title {
+    font-size: 42px;
+  }
+
+  .program-intro {
+    margin: 40px auto;
+  }
+
+  .program-intro p {
+    font-size: 16px;
+  }
+
+  .program-details-section {
+    flex-direction: column;
+    margin: 40px auto;
+    gap: 30px;
+  }
+
+  .program-details-text,
+  .program-details-image {
+    min-width: 100%;
+    width: 100%;
+  }
+
+  .program-details-text h2 {
+    font-size: 24px;
+  }
+
+  .benefits-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .program-page div img {
+    max-width: 100%;
+    height: auto;
+  }
+}

@@ -1,0 +1,235 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - navigation [ref=e4]:
+    - list [ref=e6]:
+      - listitem [ref=e7]:
+        - link "Programs" [ref=e8] [cursor=pointer]:
+          - /url: "#programs"
+      - listitem [ref=e9]:
+        - link "Schedule" [ref=e10] [cursor=pointer]:
+          - /url: "#schedule"
+      - listitem [ref=e11]:
+        - link "More" [ref=e12] [cursor=pointer]:
+          - /url: "#more"
+    - link "REIGN JIU JITSU" [ref=e14] [cursor=pointer]:
+      - /url: /
+    - generic [ref=e15]:
+      - link "Call or text (713) 446-6008" [ref=e17] [cursor=pointer]:
+        - /url: tel:17134466008
+      - generic [ref=e18]:
+        - link "Facebook" [ref=e19] [cursor=pointer]:
+          - /url: https://www.facebook.com/ReignJiuJitsu/
+          - img [ref=e20]
+        - link "Instagram" [ref=e22] [cursor=pointer]:
+          - /url: https://www.instagram.com/reignjiujitsu/?hl=en
+          - img [ref=e23]
+  - main [ref=e25]:
+    - generic [ref=e26]:
+      - generic [ref=e27]:
+        - generic [ref=e28]:
+          - heading "Admin Panel" [level=2] [ref=e29]
+          - button "Logout" [ref=e30] [cursor=pointer]
+        - list [ref=e31]:
+          - listitem [ref=e32]:
+            - link "Manage Homepage" [ref=e33] [cursor=pointer]:
+              - /url: /admin/homepage
+          - listitem [ref=e34]:
+            - link "Manage Programs" [ref=e35] [cursor=pointer]:
+              - /url: /admin/programs
+          - listitem [ref=e36]:
+            - link "Manage About Us" [ref=e37] [cursor=pointer]:
+              - /url: /admin/about
+          - listitem [ref=e38]:
+            - link "Manage Instructors" [ref=e39] [cursor=pointer]:
+              - /url: /admin/instructors
+          - listitem [ref=e40]:
+            - link "Change Password" [ref=e41] [cursor=pointer]:
+              - /url: /admin/security
+      - generic [ref=e43]:
+        - heading "Manage Homepage" [level=1] [ref=e44]
+        - paragraph [ref=e45]: Here you can edit the content of the homepage.
+        - generic [ref=e46]:
+          - heading "Homepage Main Image (Fallback)" [level=3] [ref=e47]
+          - generic [ref=e48]:
+            - paragraph [ref=e49]: "Current Image (Drag to reposition):"
+            - generic [ref=e50]: No Image Selected
+          - generic [ref=e51]:
+            - button "Choose File" [ref=e52]
+            - button "Choose from Library" [ref=e53] [cursor=pointer]
+            - combobox [ref=e54]:
+              - option "Center" [selected]
+              - option "Top"
+              - option "Bottom"
+              - option "Left"
+              - option "Right"
+            - button "Save Changes" [ref=e55] [cursor=pointer]
+        - paragraph [ref=e56]: GIFs are supported. Use the dropdown to adjust the image position.
+        - generic [ref=e57]:
+          - heading "Homepage Hero Video" [level=3] [ref=e58]
+          - generic [ref=e59]:
+            - textbox "Enter new YouTube URL" [ref=e60]
+            - button "Save New Video URL" [ref=e61] [cursor=pointer]
+        - generic [ref=e62]:
+          - heading "Welcome Section Image" [level=3] [ref=e63]
+          - generic [ref=e64]:
+            - paragraph [ref=e65]: "Current Image (Drag to reposition):"
+            - generic [ref=e66]: No Image Selected
+          - generic [ref=e67]:
+            - button "Choose File" [ref=e68]
+            - button "Choose from Library" [ref=e69] [cursor=pointer]
+            - combobox [ref=e70]:
+              - option "Center" [selected]
+              - option "Top"
+              - option "Bottom"
+              - option "Left"
+              - option "Right"
+            - button "Save Changes" [ref=e71] [cursor=pointer]
+        - heading "Programs Section" [level=2] [ref=e72]
+        - generic [ref=e73]:
+          - heading "Kids Program Image" [level=3] [ref=e74]
+          - generic [ref=e75]:
+            - paragraph [ref=e76]: "Current Image (Drag to reposition):"
+            - generic [ref=e77]: No Image Selected
+          - generic [ref=e78]:
+            - button "Choose File" [ref=e79]
+            - button "Choose from Library" [ref=e80] [cursor=pointer]
+            - combobox [ref=e81]:
+              - option "Center" [selected]
+              - option "Top"
+              - option "Bottom"
+              - option "Left"
+              - option "Right"
+            - button "Save Changes" [ref=e82] [cursor=pointer]
+        - generic [ref=e83]:
+          - heading "Homeschool Program Image" [level=3] [ref=e84]
+          - generic [ref=e85]:
+            - paragraph [ref=e86]: "Current Image (Drag to reposition):"
+            - generic [ref=e87]: No Image Selected
+          - generic [ref=e88]:
+            - button "Choose File" [ref=e89]
+            - button "Choose from Library" [ref=e90] [cursor=pointer]
+            - combobox [ref=e91]:
+              - option "Center" [selected]
+              - option "Top"
+              - option "Bottom"
+              - option "Left"
+              - option "Right"
+            - button "Save Changes" [ref=e92] [cursor=pointer]
+        - generic [ref=e93]:
+          - heading "Adult Program Image" [level=3] [ref=e94]
+          - generic [ref=e95]:
+            - paragraph [ref=e96]: "Current Image (Drag to reposition):"
+            - generic [ref=e97]: No Image Selected
+          - generic [ref=e98]:
+            - button "Choose File" [ref=e99]
+            - button "Choose from Library" [ref=e100] [cursor=pointer]
+            - combobox [ref=e101]:
+              - option "Center" [selected]
+              - option "Top"
+              - option "Bottom"
+              - option "Left"
+              - option "Right"
+            - button "Save Changes" [ref=e102] [cursor=pointer]
+        - generic [ref=e103]:
+          - heading "Fundamentals Program Image" [level=3] [ref=e104]
+          - generic [ref=e105]:
+            - paragraph [ref=e106]: "Current Image (Drag to reposition):"
+            - generic [ref=e107]: No Image Selected
+          - generic [ref=e108]:
+            - button "Choose File" [ref=e109]
+            - button "Choose from Library" [ref=e110] [cursor=pointer]
+            - combobox [ref=e111]:
+              - option "Center" [selected]
+              - option "Top"
+              - option "Bottom"
+              - option "Left"
+              - option "Right"
+            - button "Save Changes" [ref=e112] [cursor=pointer]
+        - generic [ref=e113]:
+          - heading "Competition Training Image" [level=3] [ref=e114]
+          - generic [ref=e115]:
+            - paragraph [ref=e116]: "Current Image (Drag to reposition):"
+            - generic [ref=e117]: No Image Selected
+          - generic [ref=e118]:
+            - button "Choose File" [ref=e119]
+            - button "Choose from Library" [ref=e120] [cursor=pointer]
+            - combobox [ref=e121]:
+              - option "Center" [selected]
+              - option "Top"
+              - option "Bottom"
+              - option "Left"
+              - option "Right"
+            - button "Save Changes" [ref=e122] [cursor=pointer]
+        - generic [ref=e123]:
+          - heading "Private Lessons Image" [level=3] [ref=e124]
+          - generic [ref=e125]:
+            - paragraph [ref=e126]: "Current Image (Drag to reposition):"
+            - generic [ref=e127]: No Image Selected
+          - generic [ref=e128]:
+            - button "Choose File" [ref=e129]
+            - button "Choose from Library" [ref=e130] [cursor=pointer]
+            - combobox [ref=e131]:
+              - option "Center" [selected]
+              - option "Top"
+              - option "Bottom"
+              - option "Left"
+              - option "Right"
+            - button "Save Changes" [ref=e132] [cursor=pointer]
+        - heading "Facility Section" [level=2] [ref=e133]
+        - generic [ref=e134]:
+          - heading "Facility Image 1" [level=3] [ref=e135]
+          - generic [ref=e136]:
+            - paragraph [ref=e137]: "Current Image (Drag to reposition):"
+            - generic [ref=e138]: No Image Selected
+          - generic [ref=e139]:
+            - button "Choose File" [ref=e140]
+            - button "Choose from Library" [ref=e141] [cursor=pointer]
+            - combobox [ref=e142]:
+              - option "Center" [selected]
+              - option "Top"
+              - option "Bottom"
+              - option "Left"
+              - option "Right"
+            - button "Save Changes" [ref=e143] [cursor=pointer]
+        - generic [ref=e144]:
+          - heading "Facility Image 2" [level=3] [ref=e145]
+          - generic [ref=e146]:
+            - paragraph [ref=e147]: "Current Image (Drag to reposition):"
+            - generic [ref=e148]: No Image Selected
+          - generic [ref=e149]:
+            - button "Choose File" [ref=e150]
+            - button "Choose from Library" [ref=e151] [cursor=pointer]
+            - combobox [ref=e152]:
+              - option "Center" [selected]
+              - option "Top"
+              - option "Bottom"
+              - option "Left"
+              - option "Right"
+            - button "Save Changes" [ref=e153] [cursor=pointer]
+        - generic [ref=e154]:
+          - heading "Facility YouTube Video" [level=3] [ref=e155]
+          - generic [ref=e156]:
+            - textbox "Enter new YouTube URL" [ref=e157]
+            - button "Save New Video URL" [ref=e158] [cursor=pointer]
+  - contentinfo [ref=e159]:
+    - generic [ref=e160]:
+      - paragraph [ref=e162]: Reign Jiu Jitsu – proudly part of the Texas Jiu Jitsu and Houston BJJ community. Your home for BJJ Texas and Jiu Jitsu Houston TX.
+      - generic [ref=e163]:
+        - link "Programs" [ref=e164] [cursor=pointer]:
+          - /url: /kids-program
+        - link "Schedule" [ref=e165] [cursor=pointer]:
+          - /url: /schedule
+        - link "Instructors" [ref=e166] [cursor=pointer]:
+          - /url: /instructors
+        - link "Contact" [ref=e167] [cursor=pointer]:
+          - /url: /contact
+        - link "About" [ref=e168] [cursor=pointer]:
+          - /url: /about
+        - link "Blog" [ref=e169] [cursor=pointer]:
+          - /url: /blog
+      - generic [ref=e170]: © 2025 Reign Jiu Jitsu. All rights reserved.
+  - button "Google Reviews" [ref=e171] [cursor=pointer]:
+    - img "Google Reviews" [ref=e172]
+```

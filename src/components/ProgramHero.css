@@ -1,0 +1,28 @@
+.program-hero {
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  position: relative;
+}
+
+.program-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.program-hero-title {
+  font-size: 3rem;
+  font-weight: bold;
+  position: relative;
+  z-index: 1;
+}

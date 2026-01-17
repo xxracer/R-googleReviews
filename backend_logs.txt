@@ -1,0 +1,12 @@
+
+> reign-bjj2@0.1.0 server
+> node backend/server.js
+
+[dotenv@17.2.3] injecting env (3) from .env -- tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] }
+Server is running for local development on http://localhost:3001
+Table "instructors" created or already exists.
+Instructors data already migrated. Skipping.
+Table "page_content" created or already exists.
+Table "users" created or already exists.
+Table "image_library" created or already exists.
+Terminated

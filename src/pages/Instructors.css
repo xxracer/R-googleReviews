@@ -1,0 +1,29 @@
+.instructor-bio-content h1,
+.instructor-bio-content h2,
+.instructor-bio-content h3 {
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+.instructor-bio-content p {
+  margin-bottom: 1em;
+  line-height: 1.6;
+}
+
+.instructor-bio-content ul,
+.instructor-bio-content ol {
+  margin-bottom: 1em;
+  padding-left: 20px;
+}
+
+.instructor-bio-content li {
+  margin-bottom: 0.5em;
+}
+
+.instructor-bio-content strong {
+  font-weight: bold;
+}
+
+.instructor-bio-content em {
+  font-style: italic;
+}

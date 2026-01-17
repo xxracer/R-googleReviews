@@ -1,0 +1,77 @@
+[
+  {
+    "id": "1",
+    "name": "Professor Pablo Silva",
+    "bio": [
+      "#Professor Pablo Silva",
+      "*Black Belt",
+      "Pablo started his jiu jitsu journey at the age of 14 in his small hometown Mariana, Minas Gerais, Brazil. At age 16, Pablo made the difficult decision of leaving his hometown and family to train full time at the in Belo Horizonte. It was then that Pablo set his goal of becoming a Black Belt World Champion. In 2009, Pablo received his black belt and just one year later achieved his goal of winning the IBJJF World Championship at the Black Belt Adult level. Pablo has won all the major world titles in the sport of jiu jitsu as a black belt."
+    ],
+    "image": "https://res.cloudinary.com/display97/image/upload/q_auto,fl_lossy,f_auto/6831/Pablo-Silva-158200.png"
+  },
+  {
+    "id": "2",
+    "name": "Professor Moon Kim",
+    "bio": [
+      "#Professor Moon Kim",
+      "*1st Degree Black Belt",
+      "*State Certified Physical Education/Health/Science Teacher",
+      "*Sports Performance Specialist",
+      "Professor Moon is a Christian and a firm believer in the value of hard work over entitlement. He rejects the modern “everyone gets a trophy” mindset, instead instilling in his students the belief that success must be earned. His philosophy is simple but powerful: consistent effort and resilience are the true keys to growth—both on the mat and in life.",
+      "A skilled Jiu Jitsu practitioner and former competitor, Professor Kim has used his deep understanding of both the sport and pedagogy to build a championship-winning team. By applying proven teaching methods to Jiu Jitsu instruction, he has created an environment where young athletes not only learn technique but develop character, confidence, and discipline. His team’s success in competition is a direct reflection of his high standards, his belief in accountability, and his ability to inspire kids to reach their full potential.",
+      "Professor Moon, has been training Jiu Jitsu since 2008 and was one of Professor Pablo's first students.  He began training Jiu Jitsu when he discovered how a smaller individual could easily dominate a larger opponent with the proper use of leverage and technique.",
+      "Professor Moon Kim brings over 16 years of experience teaching middle and high school students, combined with an extensive background in coaching youth sports. A dedicated educator and mentor, he is known for blending structure, discipline, and encouragement to bring out the best in his students and athletes...  Professor Moon is the founder of Reign Jiu Jitsu and also a sports performance specialist with the SpeedofSport. Combining his experience in education, coaching youth sports, personal training and Jiu Jitsu. His mission is to serve the community by transforming lives through Jiu Jitsu."
+    ],
+    "image": "https://res.cloudinary.com/display97/image/upload/q_auto,fl_lossy,f_auto/6831/Moon-Kim-158202.png"
+  },
+  {
+    "id": "3",
+    "name": "Professor Lucho Silva",
+    "bio": [
+      "#Professor Lucho Silva",
+      "2dn Degree Black Belt",
+      "Professor Lucho Silva is a second-degree black belt with a deep passion for sharing the life-changing benefits of Jiu Jitsu. Known for his magnetic energy both on and off the mats, Professor Lucho brings unmatched charisma to every class he teaches, inspiring students of all levels to push beyond their limits. His love for the art is only matched by his passion for music—outside the gym, he is the dynamic and charismatic lead singer of a Chilean punk rock band. Whether he’s leading a class or commanding a stage, Professor Lucho’s presence is unforgettable and his dedication to building strong, confident individuals is felt in everything he does."
+    ],
+    "image": "https://static.wixstatic.com/media/c5947c_de45939af2c3416d87ab4d4517d40537~mv2.webp"
+  },
+  {
+    "id": "4",
+    "name": "Professor Oleg Rudnev *cooper* ",
+    "bio": [
+      "#Professor Oleg Rudnev *cooper*",
+      "1st Degree Black Belt",
+      "Professor Oleg was born in Moscow and ran his own academy before he came to the US.  With over 13 yrs of jiu jitsu experience plus many competition achievements, Professor Oleg is dedicated in sharing his knowledge in the adults class. He is also a tattoo artist and won many awards in the art of tattooing."
+    ],
+    "image": "https://static.wixstatic.com/media/c5947c_00f969ce037149b5b67adba46e49d453~mv2.webp"
+  },
+  {
+    "id": "5",
+    "name": "Coach Nelson Beltran",
+    "bio": [
+      "#NCoach Nelson Beltran",
+      "*brown belt",
+      "elson Beltran began training Jiu Jitsu in 2019 and is one of the first students at Reign.  Coach Nelson enjoys testing himself by competing and is very passionate about Jiu Jitsu.  Coach Nelson is eager to share the joy of training with others and does so in part by asssisting in our kids program and frequently assists with and trains in other classes."
+    ],
+    "image": "https://static.wixstatic.com/media/c5947c_db7490d948cb4a2ba842a8d60a3bd1d9~mv2.webp"
+  },
+  {
+    "id": "6",
+    "name": "Coach Daniel Black",
+    "bio": [
+      "#Coach Daniel Black",
+      "*Brown Belt/ wrestling coach",
+      " Black, began training Jiu Jitsu in 2004. Black joined Team Reign to continue his training and passion for the art.  Coach Black enjoys testing himself by competing and learning the art of Jiu Jitsu.  Coach Black is excited to share his knowledge of wrestling and Jiu Jitsu with others and does so in part by assisting in our kids program and trains in other classes."
+    ],
+    "image": "https://static.wixstatic.com/media/c5947c_76c3c640b17d4433847bdf0c816284f0~mv2.webp"
+  },
+  {
+    "id": "7",
+    "name": "Coach Demichael Franklin",
+    "bio": [
+      "#Coach Demichael Franklin",
+      "*Wrestling coach",
+      "DeMichael Franklin brings over 11 years of wrestling experience to the mat. A former D-1 wrestler for Iowa State and a Texas UIL 6A state medalist, Franklin placed 4th in the state before continuing his wrestling career at Iowa State University, where he competed against some of the nation’s top athletes. During his time at ISU, he notched key victories over Division I All-Americans, showcasing his elite skill and competitive mindset. As a coach, Franklin played a vital role in the success of national champion Kyven Gadson, helping guide him through Final X and the Olympic Trials. His deep knowledge, competitive pedigree, and commitment to athlete development make him a respected leader in the wrestling community."
+    ],
+    "image": "https://static.wixstatic.com/media/c5947c_0b4d7075f7dc445ba44c1cb92f07f768~mv2.webp"
+  }
+]

@@ -1,0 +1,49 @@
+/* src/components/WhyChooseUs.css */
+
+.why-choose-us-section {
+  padding: 80px 20px;
+  background-color: var(--background-primary);
+}
+
+.why-choose-us-list {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.why-choose-us-item {
+  font-family: var(--font-body);
+  font-size: 18px;
+  color: var(--text-charcoal);
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.why-choose-us-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 1px;
+  background-color: var(--border-light-gray);
+  /* This could be replaced with an SVG for a true brush stroke effect */
+  opacity: 0.7;
+}
+
+.why-choose-us-item p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .why-choose-us-section {
+    padding: 60px 15px;
+  }
+  .why-choose-us-item {
+    font-size: 16px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+}
