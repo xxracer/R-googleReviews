@@ -20,7 +20,7 @@ const WrestlingProgram = () => {
                     { key: 'detail2', url: '/api/content/wrestling_detail_2' }
                 ];
 
-                const newImages = { ...images };
+                const fetchedUpdates = {};
 
                 for (const endpoint of endpoints) {
                     try {
@@ -30,12 +30,12 @@ const WrestlingProgram = () => {
                             if (endpoint.key === 'hero') {
                                 try {
                                     const content = JSON.parse(val);
-                                    newImages.hero = content.url || val;
-                                    newImages.heroCoords = content.coords || { x: 0, y: 0 };
+                                    fetchedUpdates.hero = content.url || val;
+                                    fetchedUpdates.heroCoords = content.coords || { x: 0, y: 0 };
                                 } catch (e) {
                                     // Not JSON or missing fields
-                                    newImages.hero = val;
-                                    newImages.heroCoords = { x: 0, y: 0 };
+                                    fetchedUpdates.hero = val;
+                                    fetchedUpdates.heroCoords = { x: 0, y: 0 };
                                 }
                             } else {
                                 // Simple image string or JSON
@@ -43,14 +43,17 @@ const WrestlingProgram = () => {
                                     const parsed = JSON.parse(val);
                                     if (parsed.url) val = parsed.url;
                                 } catch (e) { }
-                                newImages[endpoint.key] = val;
+                                fetchedUpdates[endpoint.key] = val;
                             }
                         }
                     } catch (err) {
                         // Keep default
                     }
                 }
-                setImages(newImages);
+
+                if (Object.keys(fetchedUpdates).length > 0) {
+                    setImages(prev => ({ ...prev, ...fetchedUpdates }));
+                }
             } catch (error) {
                 console.error('Error fetching wrestling content:', error);
             }
