@@ -60,6 +60,7 @@ const InstagramFeed = () => {
             {post.link && post.link !== '#' ? (
               <iframe
                 className="instagram-embed-iframe"
+                title={`Instagram Post ${post.id}`}
                 src={`${post.link.split('?')[0]}embed`}
                 frameBorder="0"
                 scrolling="no"
