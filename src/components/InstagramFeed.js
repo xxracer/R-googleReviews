@@ -16,13 +16,15 @@ const InstagramFeed = () => {
           if (response.data && response.data.content_value) {
             // Parse if it's JSON (sometimes ImageEditor saves as JSON with coords), or use raw string
             let imageUrl = response.data.content_value;
+            let postLink = '#';
             try {
               const parsed = JSON.parse(imageUrl);
               if (parsed.url) imageUrl = parsed.url;
+              if (parsed.postLink) postLink = parsed.postLink;
             } catch (e) {
               // Not JSON, use as is
             }
-            newPosts.push({ id, img: imageUrl });
+            newPosts.push({ id, img: imageUrl, link: postLink });
           }
         } catch (error) {
           // Ignore missing images
@@ -54,8 +56,22 @@ const InstagramFeed = () => {
       <h2 className="section-title">Latest on Instagram</h2>
       <div className="instagram-grid">
         {posts.map(post => (
-          <div key={post.id} className="instagram-post-link">
-            <img src={post.img} alt={`Instagram post ${post.id}`} />
+          <div key={post.id} className="instagram-post-wrapper">
+            {post.link && post.link !== '#' ? (
+              <iframe
+                className="instagram-embed-iframe"
+                src={`${post.link.split('?')[0]}embed`}
+                frameBorder="0"
+                scrolling="no"
+                allowtransparency="true"
+                allow="encrypted-media"
+              ></iframe>
+            ) : (
+              <div className="instagram-post-link">
+                <img src={post.img} alt={`Instagram post ${post.id}`} />
+                <div className="image-overlay">Link Needed</div>
+              </div>
+            )}
           </div>
         ))}
       </div>

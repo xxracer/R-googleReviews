@@ -14,6 +14,7 @@ const ImageEditor = ({ sectionId, title, showPositionControl = false }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
   const [messageType, setMessageType] = useState('');
+  const [postLink, setPostLink] = useState(''); // New state for linking images
   const nodeRef = React.useRef(null); // Fix for React 19 findDOMNode deprecation
 
   const apiBaseUrl = ''; // All API calls will be proxied
@@ -30,6 +31,9 @@ const ImageEditor = ({ sectionId, title, showPositionControl = false }) => {
           }
           if (content.coords) {
             setPosition(content.coords);
+          }
+          if (content.postLink) {
+            setPostLink(content.postLink);
           }
         }
       } catch (error) {
@@ -85,6 +89,7 @@ const ImageEditor = ({ sectionId, title, showPositionControl = false }) => {
         url: imageUrl,
         position: objectPosition,
         coords: position,
+        postLink: postLink,
       };
 
       await axios.put(`${apiBaseUrl}/api/content/${sectionId}`, {
@@ -148,6 +153,18 @@ const ImageEditor = ({ sectionId, title, showPositionControl = false }) => {
           {isLoading ? 'Saving...' : 'Save Changes'}
         </button>
       </div>
+      {(sectionId.includes('instagram') || sectionId.includes('program') || sectionId.includes('link')) && (
+        <div className="link-controls" style={{ marginTop: '10px' }}>
+          <label style={{ display: 'block', marginBottom: '5px', fontSize: '0.9rem' }}>Destination Link (Optional):</label>
+          <input
+            type="text"
+            placeholder="https://instagram.com/p/..."
+            value={postLink}
+            onChange={(e) => setPostLink(e.target.value)}
+            style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ddd' }}
+          />
+        </div>
+      )}
       {statusMessage && <p className={`status-message ${messageType}`}>{statusMessage}</p>}
     </div>
   );

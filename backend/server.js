@@ -319,7 +319,6 @@ app.put('/api/content/:section_id', requireAuth, async (req, res) => {
   }
 });
 
-// Webhook Contact Form API
 app.post('/api/send-message', async (req, res) => {
   const { name, email, message } = req.body;
   const webhookUrl = process.env.MAKE_WEBHOOK_URL;
