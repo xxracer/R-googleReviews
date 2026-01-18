@@ -54,12 +54,14 @@ const Navbar = () => {
               <li><Link to="/adult-program" onClick={closeMobileMenu}>Adult Program</Link></li>
               <li><Link to="/fundamentals-program" onClick={closeMobileMenu}>Fundamentals Program</Link></li>
               <li><Link to="/competition-training" onClick={closeMobileMenu}>Competition Training</Link></li>
+              <li><Link to="/wrestling-program" onClick={closeMobileMenu}>Wrestling Program</Link></li>
               <li><Link to="/private-lessons" onClick={closeMobileMenu}>Private Lessons</Link></li>
             </ul>
           </li>
           <li className="dropdown">
             <a href="#schedule" onClick={(e) => handleDropdownClick(e, 'schedule')}>Schedule</a>
             <ul className={`dropdown-menu ${openDropdown === 'schedule' ? 'open' : ''}`}>
+              <li><Link to="/training-schedule" onClick={closeMobileMenu}>Training Schedule</Link></li>
               <li><Link to="/instructors" onClick={closeMobileMenu}>Instructors</Link></li>
               <li><Link to="/facility" onClick={closeMobileMenu}>Our Facility</Link></li>
             </ul>

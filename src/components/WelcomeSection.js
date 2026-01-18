@@ -11,7 +11,12 @@ const WelcomeSection = () => {
       try {
         const response = await axios.get(`${apiBaseUrl}/api/content/welcome_section_image`);
         if (response.data && response.data.content_value) {
-          setImageUrl(response.data.content_value);
+          try {
+            const content = JSON.parse(response.data.content_value);
+            setImageUrl(content.url || response.data.content_value);
+          } catch (e) {
+            setImageUrl(response.data.content_value);
+          }
         }
       } catch (error) {
         console.error('Error fetching welcome section image:', error);

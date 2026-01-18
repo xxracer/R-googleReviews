@@ -6,9 +6,16 @@ const bcrypt = require('bcrypt');
 
 const migrateInstructorsData = async () => {
   try {
-    // Always clear existing instructors to ensure data is fresh from the JSON file.
-    await query('DELETE FROM instructors');
-    console.log('Cleared existing instructors data.');
+    // Check if data already exists to avoid overwriting user edits
+    const { rows } = await query('SELECT COUNT(*) FROM instructors');
+    if (parseInt(rows[0].count, 10) > 0) {
+      console.log('Instructors table already has data. Skipping migration to preserve edits.');
+      return;
+    }
+
+    // Only clear and reseed if truly needed (or if force flag is implemented later)
+    // await query('TRUNCATE TABLE instructors RESTART IDENTITY'); // Removed to be safe, logic above handles it.
+    console.log('Seeding initial instructors data...');
 
     const filePath = path.join(__dirname, 'instructors.json');
     console.log(`Checking for instructors data at: ${filePath}`);
@@ -22,13 +29,28 @@ const migrateInstructorsData = async () => {
 
     for (const instructor of instructors) {
       const { id, name, bio, image } = instructor;
-      const bioHtml = bio.map(paragraph => `<p>${paragraph}</p>`).join('');
+      // Ensure bio is an array, if it's already a string, wrap it.
+      const bioArray = Array.isArray(bio) ? bio : [bio];
+
+      const bioHtml = bioArray.map(paragraph => {
+        const p = paragraph.trim();
+        if (p.startsWith('#')) {
+          return `<h3>${p.substring(1).trim()}</h3>`;
+        } else if (p.startsWith('*')) {
+          return `<p><strong>${p.substring(1).trim()}</strong></p>`;
+        } else {
+          return `<p>${p}</p>`;
+        }
+      }).join('');
+
+      console.log(`Migrating Instructor ${id}: ${name} -> HTML length ${bioHtml.length}`);
+
       await query(
         'INSERT INTO instructors (name, bio, image, original_id) VALUES ($1, $2, $3, $4)',
         [name, bioHtml, image, id]
       );
     }
-    console.log('Successfully migrated instructors data from JSON to database.');
+    console.log('Successfully MIGRATED instructors data from JSON to HTML in DB.');
   } catch (err) {
     console.error('Error migrating instructors data:', err);
   }

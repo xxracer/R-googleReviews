@@ -9,6 +9,7 @@ const initialProgramsData = [
   { id: 'adult', title: 'Adult Jiu Jitsu', path: '/adult-program', description: 'For self-defense, fitness, and growth.', image: 'https://static.wixstatic.com/media/c5947c_63ee72fd97bd41cb9765007d3fcd2c03~mv2.webp', alt: 'Adults rolling on mats' },
   { id: 'fundamentals', title: 'Fundamentals Program', path: '/fundamentals-program', description: 'Perfect for new students.', image: 'https://static.wixstatic.com/media/c5947c_2bc197c9fc884db093709a7c485f4a10~mv2.jpeg', alt: 'Fundamentals class' },
   { id: 'competition', title: 'Competition Training', path: '/competition-training', description: 'For athletes who want to test themselves on the mat.', image: 'https://static.wixstatic.com/media/c5947c_71fd2736ba3f44698abcaf1f97f5cfe4~mv2.png', alt: 'Competition highlight photo' },
+  { id: 'wrestling', title: 'Wrestling Program', path: '/wrestling-program', description: 'Build strength, speed, and grit.', image: 'https://placehold.co/600x400?text=Wrestling+Program', alt: 'Wrestling class' },
   { id: 'private_lessons', title: 'Private Lessons', path: '/private-lessons', description: 'One-on-one coaching for faster progress.', image: 'https://static.wixstatic.com/media/c5947c_7a00dcaeef1c40db9ac17b3bd4bda321~mv2.jpg', alt: 'Private BJJ lesson' }
 ];
 
@@ -23,7 +24,14 @@ const Programs = () => {
         try {
           const response = await axios.get(`${apiBaseUrl}/api/content/program_${program.id}_image`);
           if (response.data && response.data.content_value) {
-            program.image = response.data.content_value;
+            // content_value is now a JSON string containing { url, position, coords }
+            try {
+              const content = JSON.parse(response.data.content_value);
+              program.image = content.url || response.data.content_value; // Fallback to raw string if no url prop
+            } catch (e) {
+              // If not JSON, assume it's a raw URL string
+              program.image = response.data.content_value;
+            }
           }
         } catch (error) {
           console.error(`Error fetching image for ${program.title}:`, error);

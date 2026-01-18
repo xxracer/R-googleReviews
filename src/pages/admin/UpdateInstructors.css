@@ -1,61 +1,112 @@
+/* src/pages/admin/UpdateInstructors.css */
 
 .admin-container {
-    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    color: var(--text-dark-gray);
 }
 
 .admin-form-card {
-    background: #f9f9f9;
-    padding: 20px;
+    background: white;
+    padding: 30px;
     border-radius: 8px;
-    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
 }
 
 .admin-form-card h2 {
-    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--primary-color);
 }
 
 .admin-form-card input,
 .admin-form-card textarea {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 4px;
+    padding: 12px;
+    margin-bottom: 20px;
     border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 16px;
+}
+
+.admin-form-card textarea {
+    resize: vertical;
+}
+
+/* Ensure CKEditor is visible and has height */
+.ck-editor__editable_inline {
+    min-height: 200px;
+    border: 1px solid #ddd !important;
+}
+
+/* Force display block on main container */
+.ck.ck-editor {
+    display: block !important;
+    width: 100% !important;
+    margin-bottom: 20px;
 }
 
 .image-upload-container {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
-.image-preview img {
-    max-width: 100px;
+.image-preview {
     margin-top: 10px;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 4px;
 }
 
 .form-buttons {
     display: flex;
-    gap: 10px;
+    gap: 15px;
 }
 
+.form-buttons button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.form-buttons button:hover {
+    background-color: #8c7354;
+    /* Darker shade of gold/brown */
+}
+
+.cancel-btn {
+    background-color: #dc3545 !important;
+}
+
+.cancel-btn:hover {
+    background-color: #bb2d3b !important;
+}
+
+/* List Styles */
 .instructors-list-container {
-    background: #f9f9f9;
-    padding: 20px;
+    background: white;
+    padding: 30px;
     border-radius: 8px;
-}
-
-.instructors-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .instructor-list-item {
     display: flex;
     align-items: center;
-    gap: 15px;
-    padding: 10px;
-    background: #fff;
-    border-radius: 4px;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.instructor-list-item:last-child {
+    border-bottom: none;
 }
 
 .instructor-list-image {
@@ -63,10 +114,32 @@
     height: 50px;
     border-radius: 50%;
     object-fit: cover;
+    margin-right: 15px;
 }
 
-.instructor-list-actions {
-    margin-left: auto;
-    display: flex;
-    gap: 10px;
+.instructor-list-name {
+    flex-grow: 1;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.instructor-list-actions button {
+    padding: 8px 15px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.instructor-list-actions button:first-child {
+    background-color: #ffc107;
+    /* Edit - Yellow/Gold */
+    color: #333;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    /* Delete - Red */
+    color: white;
 }

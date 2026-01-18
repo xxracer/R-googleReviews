@@ -4,20 +4,18 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
+const { list, put } = require('@vercel/blob'); // Added put just in case for uploads
 const axios = require('axios');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const PGStore = require('connect-pg-simple')(session);
 const { pool } = require('./db');
-
 const app = express();
 
 // --- Database Initialization ---
 const { initializeDatabase } = require('./db-init');
 const db = require('./db');
 const multer = require('multer');
-const { put } = require('@vercel/blob');
-
 const upload = multer({ storage: multer.memoryStorage() });
 
 // Database initialization is now handled in startServer() at the bottom of the file
@@ -62,6 +60,20 @@ const requireAuth = (req, res, next) => {
     return res.status(401).json({ success: false, message: 'Unauthorized' });
   }
 };
+
+// --- Keep-Alive / Health Check Endpoint ---
+app.get('/api/keep-alive', async (req, res) => {
+  try {
+    // Simple query to keep DB connection active
+    await db.query('SELECT 1');
+    res.status(200).send('Alive');
+  } catch (err) {
+    console.error('Keep-alive ping failed:', err);
+    // Still return 200 so Vercel Cron doesn't consider it a "failure" and spam logs, 
+    // but log the error internally. The mere act of hitting the endpoint wakes the lambda.
+    res.status(200).send('Waking up...');
+  }
+});
 
 // --- API Routes ---
 
@@ -211,16 +223,22 @@ app.delete('/api/instructors/:id', requireAuth, async (req, res) => {
 });
 
 // Image Library API (Read is public)
+// Image Library API (Read is public)
+
 app.get('/api/images', async (req, res) => {
   try {
-    const { rows } = await db.query('SELECT * FROM image_library ORDER BY id DESC');
-    res.json(rows);
-  } catch (err) {
-    console.error('Error fetching images from DB:', {
-      message: err.message,
-      code: err.code,
-      stack: err.stack
+    const { blobs } = await list({
+      token: process.env.BLOB_READ_WRITE_TOKEN,
     });
+    // Map Vercel Blob format to the format expected by the frontend
+    const images = blobs.map(blob => ({
+      id: blob.url, // Use URL as ID
+      image_url: blob.url,
+      uploaded_at: blob.uploadedAt
+    }));
+    res.json(images);
+  } catch (err) {
+    console.error('Error fetching images from Vercel Blob:', err);
     res.status(500).json({ success: false, message: 'Failed to fetch images.' });
   }
 });
@@ -354,9 +372,9 @@ const IS_VERCEL = process.env.VERCEL === '1';
 const startServer = async () => {
   try {
     // 1. Initialize Database
-    console.log('Initializing database...');
+    console.log('Starting server initialization...');
     await initializeDatabase();
-    console.log('Database initialized successfully.');
+    console.log('Database initialization completed.');
 
     // 2. Check Environment Variables
     const requiredEnv = [

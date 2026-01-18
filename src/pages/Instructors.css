@@ -1,29 +1,130 @@
-.instructor-bio-content h1,
-.instructor-bio-content h2,
+/* src/pages/Instructors.css */
+
+.instructors-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  color: #333;
+}
+
+.instructors-page h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 60px;
+  text-transform: uppercase;
+  color: #333;
+  /* Dark gray for premium feel */
+  font-family: 'Oswald', sans-serif;
+  /* Assuming font availability, fallback to sans-serif */
+  letter-spacing: 1px;
+}
+
+.instructor-item {
+  display: flex;
+  align-items: flex-start;
+  /* Align top so text flows naturally */
+  gap: 60px;
+  margin-bottom: 80px;
+  padding-bottom: 60px;
+  border-bottom: 1px solid #eee;
+  /* Subtle separator */
+}
+
+.instructor-item:last-child {
+  border-bottom: none;
+}
+
+/* Reverse layout for alternating items */
+.instructor-item.reverse {
+  flex-direction: row-reverse;
+}
+
+/* Image Styling */
+.instructor-image-wrapper {
+  flex: 0 0 180px;
+  /* Fixed width for images */
+  position: relative;
+}
+
+.instructor-image-wrapper img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  /* Premium shadow */
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.instructor-image-wrapper img:hover {
+  transform: translateY(-5px);
+}
+
+/* Bio/Text Styling */
+.instructor-bio {
+  flex: 1;
+  /* Take remaining space */
+}
+
+.instructor-bio h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #222;
+  font-family: 'Oswald', sans-serif;
+}
+
+/* Content Typography (from previous file, but verified) */
 .instructor-bio-content h3 {
-  margin-bottom: 0.5em;
-  font-weight: bold;
+  font-size: 1.2rem;
+  color: #666;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .instructor-bio-content p {
-  margin-bottom: 1em;
-  line-height: 1.6;
+  line-height: 1.8;
+  margin-bottom: 1.5em;
+  color: #555;
+  font-size: 1.05rem;
 }
 
 .instructor-bio-content ul,
 .instructor-bio-content ol {
-  margin-bottom: 1em;
+  margin-bottom: 1.5em;
   padding-left: 20px;
+  color: #555;
 }
 
 .instructor-bio-content li {
   margin-bottom: 0.5em;
+  line-height: 1.6;
 }
 
 .instructor-bio-content strong {
-  font-weight: bold;
+  color: #222;
+  /* Darker for emphasis */
 }
 
-.instructor-bio-content em {
-  font-style: italic;
+/* Responsive Design */
+@media (max-width: 900px) {
+  .instructor-item {
+    flex-direction: column !important;
+    /* Stack on mobile */
+    gap: 30px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .instructor-image-wrapper {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .instructors-page h1 {
+    font-size: 2rem;
+  }
 }

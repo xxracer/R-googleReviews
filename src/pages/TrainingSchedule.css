@@ -1,0 +1,126 @@
+.schedule-page {
+    padding: 120px 20px 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+    color: var(--text-charcoal);
+}
+
+.schedule-page h1 {
+    text-align: center;
+    margin-bottom: 16px;
+    font-family: var(--font-heading-primary);
+}
+
+.schedule-page p.schedule-intro {
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 48px;
+}
+
+.schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+}
+
+.schedule-day {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.schedule-day h2 {
+    background: var(--text-charcoal);
+    color: var(--background-primary);
+    padding: 16px 20px;
+    font-size: 20px;
+    margin: 0;
+}
+
+.schedule-sessions {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.schedule-session {
+    padding: 16px 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.schedule-session:first-of-type {
+    border-top: none;
+}
+
+.schedule-session .time {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.schedule-session .title {
+    margin: 0;
+    line-height: 1.4;
+}
+
+.session-tags {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.session-tag {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: rgba(220, 59, 48, 0.1);
+    color: #dc3b30;
+    font-weight: 600;
+}
+
+.session-tag.kids {
+    background: rgba(59, 164, 220, 0.12);
+    color: #1a6aa6;
+}
+
+.session-tag.adults {
+    background: rgba(64, 184, 148, 0.12);
+    color: #1e6653;
+}
+
+.session-tag.private {
+    background: rgba(148, 91, 214, 0.12);
+    color: #4a2c85;
+}
+
+.session-tag.wrestling {
+    background: rgba(255, 166, 0, 0.15);
+    color: #a04a00;
+}
+
+.schedule-cta {
+    margin-top: 60px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.schedule-cta a {
+    color: #dc3b30;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .schedule-page {
+        padding: 100px 16px 60px;
+    }
+
+    .schedule-page p.schedule-intro {
+        font-size: 16px;
+    }
+}

@@ -22,13 +22,33 @@ const Facility = () => {
         ]);
 
         if (image1Res.data && image1Res.data.content_value) {
-          setFacilityImages(prev => [{ ...prev[0], src: image1Res.data.content_value }, prev[1]]);
+          let src = image1Res.data.content_value;
+          try {
+            const content = JSON.parse(src);
+            if (content.url) src = content.url;
+          } catch (e) { }
+          setFacilityImages(prev => [{ ...prev[0], src }, prev[1]]);
         }
         if (image2Res.data && image2Res.data.content_value) {
-          setFacilityImages(prev => [prev[0], { ...prev[1], src: image2Res.data.content_value }]);
+          let src = image2Res.data.content_value;
+          try {
+            const content = JSON.parse(src);
+            if (content.url) src = content.url;
+          } catch (e) { }
+          setFacilityImages(prev => [prev[0], { ...prev[1], src }]);
         }
         if (videoRes.data && videoRes.data.content_value) {
-          setVideoUrl(videoRes.data.content_value.replace('watch?v=', 'embed/'));
+          const val = videoRes.data.content_value;
+          // Regex to extract video ID from various YouTube URL formats
+          const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+          const match = val.match(regExp);
+          const videoId = (match && match[2].length === 11) ? match[2] : null;
+
+          if (videoId) {
+            setVideoUrl(`https://www.youtube.com/embed/${videoId}`);
+          } else {
+            setVideoUrl(val); // Fallback to raw value if no ID found (though likely won't work for standard URLs)
+          }
         }
       } catch (error) {
         console.error('Error fetching facility content:', error);

@@ -1,6 +1,10 @@
 
 import React, { useState, useEffect } from 'react';
 import './UpdateInstructors.css';
+import ReactQuill from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css'; // Import Quill stylest
+
+// ... imports remain the same
 
 const API_URL = '/api/instructors';
 
@@ -103,13 +107,20 @@ const UpdateInstructors = () => {
             onChange={handleInputChange}
             required
           />
-          <textarea
-            name="bio"
-            placeholder="Instructor Bio"
-            value={formData.bio}
-            onChange={handleInputChange}
-            rows="10"
-          ></textarea>
+          <ReactQuill
+            theme="snow"
+            value={formData.bio || ''}
+            onChange={(content) => setFormData(prev => ({ ...prev, bio: content }))}
+            modules={{
+              toolbar: [
+                [{ 'header': [1, 2, 3, false] }],
+                ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                ['link'],
+                ['clean']
+              ],
+            }}
+          />
           <div className="image-upload-container">
             <label htmlFor="image-upload">Instructor Image:</label>
             <input

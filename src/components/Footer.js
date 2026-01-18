@@ -18,6 +18,9 @@ const Footer = () => {
         </div>
         <div className="footer-copyright">
           &copy; {new Date().getFullYear()} Reign Jiu Jitsu. All rights reserved.
+          <div className="footer-credits">
+            Made By <a href="https://ilptechnology.com/" target="_blank" rel="noopener noreferrer">ILP Technologys</a>
+          </div>
         </div>
       </div>
     </footer>

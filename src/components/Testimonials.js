@@ -12,7 +12,7 @@ const Testimonials = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/google-reviews');
+        const response = await axios.get('/api/google-reviews');
         if (response.data.success && response.data.reviews) {
           // Serialize API data to match component structure
           const formattedReviews = response.data.reviews.map((r, index) => ({

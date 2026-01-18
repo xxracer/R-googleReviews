@@ -12,9 +12,38 @@ const Instructors = () => {
   useEffect(() => {
     fetch(API_URL)
       .then(res => res.json())
-      .then(data => setInstructors(data))
+      .then(data => {
+        console.log("Instructors Data Received from API:", data);
+        // Ensure sorting by ID
+        const sortedData = data.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+        setInstructors(sortedData);
+      })
       .catch(err => console.error("Error fetching instructors:", err));
   }, []);
+
+  const parseBio = (bio) => {
+    // If bio is already HTML (contains <p> or <h3>), return it as is.
+    if (typeof bio === 'string' && (bio.includes('<p>') || bio.includes('<h3>'))) {
+      return DOMPurify.sanitize(bio);
+    }
+
+    // Fallback: Parse the custom array format or raw string
+    const bioArray = Array.isArray(bio) ? bio : [bio];
+    let html = '';
+
+    bioArray.forEach(paragraph => {
+      const p = String(paragraph).trim(); // Ensure string
+      if (p.startsWith('#')) {
+        html += `<h3>${p.substring(1).trim()}</h3>`;
+      } else if (p.startsWith('*')) {
+        html += `<p><strong>${p.substring(1).trim()}</strong></p>`;
+      } else {
+        html += `<p>${p}</p>`;
+      }
+    });
+
+    return DOMPurify.sanitize(html);
+  };
 
   const pageFaqs = [
     {
@@ -59,7 +88,7 @@ const Instructors = () => {
             <h2>{instructor.name}</h2>
             <div
               className="instructor-bio-content"
-              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(instructor.bio) }}
+              dangerouslySetInnerHTML={{ __html: parseBio(instructor.bio) }}
             />
           </div>
         </div>
