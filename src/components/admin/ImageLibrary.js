@@ -27,6 +27,20 @@ const ImageLibrary = ({ onSelect, onClose }) => {
     onSelect(imageUrl);
   };
 
+  const handleDelete = async (imageId, event) => {
+    event.stopPropagation();
+    const confirmed = window.confirm('Delete this image? This cannot be undone.');
+    if (!confirmed) return;
+
+    try {
+      await axios.delete(`/api/images/${imageId}`);
+      setImages(prev => prev.filter(image => image.id !== imageId));
+    } catch (err) {
+      console.error('Error deleting image:', err);
+      setError('Failed to delete image. Please try again.');
+    }
+  };
+
   return (
     <div className="image-library-modal-backdrop">
       <div className="image-library-modal-content">
@@ -39,7 +53,14 @@ const ImageLibrary = ({ onSelect, onClose }) => {
           {error && <p className="error-message">{error}</p>}
           {images.map(image => (
             <div key={image.id} className="image-thumbnail" onClick={() => handleImageSelect(image.image_url)}>
-              <img src={image.image_url} alt={`Library item ${image.id}`} />
+              <img src={image.thumb_url || image.image_url} alt={`Library item ${image.id}`} />
+              <button
+                type="button"
+                className="delete-image-button"
+                onClick={(event) => handleDelete(image.id, event)}
+              >
+                Delete
+              </button>
             </div>
           ))}
         </div>

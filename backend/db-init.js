@@ -63,11 +63,13 @@ const createInstructorsTable = async () => {
       name VARCHAR(255) NOT NULL,
       bio TEXT NOT NULL,
       image VARCHAR(255),
+      title VARCHAR(255),
       original_id VARCHAR(50)
     );
   `;
   try {
     await query(createTableQuery);
+    await query('ALTER TABLE instructors ADD COLUMN IF NOT EXISTS title VARCHAR(255)');
     console.log('Table "instructors" created or already exists.');
     await migrateInstructorsData();
   } catch (err) {
@@ -131,11 +133,13 @@ const createImageLibraryTable = async () => {
   const createTableQuery = `
     CREATE TABLE IF NOT EXISTS image_library (
       id SERIAL PRIMARY KEY,
-      image_url TEXT NOT NULL UNIQUE
+      image_url TEXT NOT NULL UNIQUE,
+      thumb_url TEXT
     );
   `;
   try {
     await query(createTableQuery);
+    await query('ALTER TABLE image_library ADD COLUMN IF NOT EXISTS thumb_url TEXT');
     console.log('Table "image_library" created or already exists.');
 
     // Seed the library with one initial image if it's empty

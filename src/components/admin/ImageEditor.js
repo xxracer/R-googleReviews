@@ -18,6 +18,8 @@ const ImageEditor = ({ sectionId, title, showPositionControl = false }) => {
   const nodeRef = React.useRef(null); // Fix for React 19 findDOMNode deprecation
 
   const apiBaseUrl = ''; // All API calls will be proxied
+  const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
+  const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 
   useEffect(() => {
     const fetchCurrentImage = async () => {
@@ -48,8 +50,26 @@ const ImageEditor = ({ sectionId, title, showPositionControl = false }) => {
   }, [sectionId, apiBaseUrl]);
 
   const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
+    const file = event.target.files[0];
+    if (!file) return;
+
+    if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+      setSelectedFile(null);
+      setStatusMessage('Only JPG, PNG, or WebP files are allowed.');
+      setMessageType('error');
+      return;
+    }
+
+    if (file.size > MAX_IMAGE_BYTES) {
+      setSelectedFile(null);
+      setStatusMessage('Image must be smaller than 10MB.');
+      setMessageType('error');
+      return;
+    }
+
+    setSelectedFile(file);
     setStatusMessage('');
+    setMessageType('');
   };
 
   const handlePositionChange = (event) => {
@@ -102,8 +122,9 @@ const ImageEditor = ({ sectionId, title, showPositionControl = false }) => {
       setMessageType('success');
       setSelectedFile(null);
     } catch (error) {
+      const serverMessage = error?.response?.data?.message;
       console.error('Failed to update image:', error);
-      setStatusMessage('An error occurred. Please try again.');
+      setStatusMessage(serverMessage || 'An error occurred. Please try again.');
       setMessageType('error');
     } finally {
       setIsLoading(false);
@@ -138,7 +159,7 @@ const ImageEditor = ({ sectionId, title, showPositionControl = false }) => {
         )}
       </div>
       <div className="upload-controls">
-        <input type="file" onChange={handleFileChange} accept="image/*,image/gif" />
+        <input type="file" onChange={handleFileChange} accept="image/jpeg,image/png,image/webp" />
         <button className="btn" onClick={() => setIsLibraryOpen(true)}>Choose from Library</button>
         {showPositionControl && (
           <select value={objectPosition} onChange={handlePositionChange}>

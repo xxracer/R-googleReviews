@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
-const { list, put } = require('@vercel/blob'); // Added put just in case for uploads
+const { del, put } = require('@vercel/blob'); // Added put just in case for uploads
 const axios = require('axios');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
@@ -16,7 +16,23 @@ const app = express();
 const { initializeDatabase } = require('./db-init');
 const db = require('./db');
 const multer = require('multer');
-const upload = multer({ storage: multer.memoryStorage() });
+const sharp = require('sharp');
+
+const MAX_UPLOAD_BYTES = 10 * 1024 * 1024;
+const ALLOWED_MIME_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp']);
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: MAX_UPLOAD_BYTES },
+  fileFilter: (req, file, cb) => {
+    if (!ALLOWED_MIME_TYPES.has(file.mimetype)) {
+      const error = new Error('Only JPG, PNG, or WebP images are allowed.');
+      error.code = 'INVALID_FILE_TYPE';
+      return cb(error);
+    }
+    return cb(null, true);
+  }
+});
 
 // Database initialization is now handled in startServer() at the bottom of the file
 
@@ -177,11 +193,11 @@ app.get('/api/instructors', async (req, res) => {
 });
 
 app.post('/api/instructors', requireAuth, async (req, res) => {
-  const { name, bio, image } = req.body;
+  const { name, bio, image, title } = req.body;
   try {
     const { rows } = await db.query(
-      'INSERT INTO instructors (name, bio, image) VALUES ($1, $2, $3) RETURNING *',
-      [name, bio, image]
+      'INSERT INTO instructors (name, bio, image, title) VALUES ($1, $2, $3, $4) RETURNING *',
+      [name, bio, image, title]
     );
     res.status(201).json(rows[0]);
   } catch (err) {
@@ -192,11 +208,11 @@ app.post('/api/instructors', requireAuth, async (req, res) => {
 
 app.put('/api/instructors/:id', requireAuth, async (req, res) => {
   const { id } = req.params;
-  const { name, bio, image } = req.body;
+  const { name, bio, image, title } = req.body;
   try {
     const { rows } = await db.query(
-      'UPDATE instructors SET name = $1, bio = $2, image = $3 WHERE id = $4 RETURNING *',
-      [name, bio, image, id]
+      'UPDATE instructors SET name = $1, bio = $2, image = $3, title = $4 WHERE id = $5 RETURNING *',
+      [name, bio, image, title, id]
     );
     if (rows.length === 0) {
       return res.status(404).json({ success: false, message: 'Instructor not found.' });
@@ -227,18 +243,12 @@ app.delete('/api/instructors/:id', requireAuth, async (req, res) => {
 
 app.get('/api/images', async (req, res) => {
   try {
-    const { blobs } = await list({
-      token: process.env.BLOB_READ_WRITE_TOKEN,
-    });
-    // Map Vercel Blob format to the format expected by the frontend
-    const images = blobs.map(blob => ({
-      id: blob.url, // Use URL as ID
-      image_url: blob.url,
-      uploaded_at: blob.uploadedAt
-    }));
-    res.json(images);
+    const { rows } = await db.query(
+      'SELECT id, image_url, thumb_url FROM image_library ORDER BY id DESC'
+    );
+    res.json(rows);
   } catch (err) {
-    console.error('Error fetching images from Vercel Blob:', err);
+    console.error('Error fetching images from image library:', err);
     res.status(500).json({ success: false, message: 'Failed to fetch images.' });
   }
 });
@@ -249,24 +259,91 @@ app.post('/api/upload', requireAuth, upload.single('image'), async (req, res) =>
     return res.status(400).json({ success: false, message: 'No image file provided.' });
   }
   try {
-    const blob = await put(req.file.originalname, req.file.buffer, {
+    const fileBaseName = path.parse(req.file.originalname).name.replace(/[^a-z0-9-_]/gi, '_').toLowerCase();
+    const uniqueId = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+    const outputFormat = req.file.mimetype === 'image/png'
+      ? 'png'
+      : req.file.mimetype === 'image/webp'
+        ? 'webp'
+        : 'jpeg';
+    const contentType = req.file.mimetype === 'image/png'
+      ? 'image/png'
+      : req.file.mimetype === 'image/webp'
+        ? 'image/webp'
+        : 'image/jpeg';
+
+    const displayBuffer = await sharp(req.file.buffer)
+      .rotate()
+      .resize({ width: 1600, height: 1600, fit: 'inside', withoutEnlargement: true })
+      .toFormat(outputFormat, { quality: 82 })
+      .toBuffer();
+
+    const thumbBuffer = await sharp(req.file.buffer)
+      .rotate()
+      .resize({ width: 400, height: 400, fit: 'cover' })
+      .toFormat(outputFormat, { quality: 70 })
+      .toBuffer();
+
+    const displayName = `uploads/${fileBaseName}-${uniqueId}-display.${outputFormat}`;
+    const thumbName = `uploads/${fileBaseName}-${uniqueId}-thumb.${outputFormat}`;
+
+    const blob = await put(displayName, displayBuffer, {
       access: 'public',
       token: process.env.BLOB_READ_WRITE_TOKEN,
       allowOverwrite: true,
+      contentType
+    });
+
+    const thumbBlob = await put(thumbName, thumbBuffer, {
+      access: 'public',
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+      allowOverwrite: true,
+      contentType
     });
 
     // Save the image URL to the library
     try {
-      await db.query('INSERT INTO image_library (image_url) VALUES ($1) ON CONFLICT (image_url) DO NOTHING', [blob.url]);
+      await db.query(
+        `INSERT INTO image_library (image_url, thumb_url)
+         VALUES ($1, $2)
+         ON CONFLICT (image_url) DO UPDATE SET thumb_url = EXCLUDED.thumb_url`,
+        [blob.url, thumbBlob.url]
+      );
     } catch (dbErr) {
       console.error('Error saving image to library:', dbErr);
       // Non-critical error, so we don't send a failure response to the client
     }
 
-    res.status(200).json({ success: true, url: blob.url });
+    res.status(200).json({ success: true, url: blob.url, thumbUrl: thumbBlob.url });
   } catch (err) {
     console.error('Error uploading image to Vercel Blob:', err);
     res.status(500).json({ success: false, message: 'Failed to upload image.' });
+  }
+});
+
+app.delete('/api/images/:id', requireAuth, async (req, res) => {
+  const { id } = req.params;
+  try {
+    const { rows } = await db.query(
+      'SELECT id, image_url, thumb_url FROM image_library WHERE id = $1',
+      [id]
+    );
+    if (rows.length === 0) {
+      return res.status(404).json({ success: false, message: 'Image not found.' });
+    }
+
+    const image = rows[0];
+    const urlsToDelete = [image.image_url, image.thumb_url].filter(Boolean);
+
+    if (urlsToDelete.length > 0) {
+      await del(urlsToDelete, { token: process.env.BLOB_READ_WRITE_TOKEN });
+    }
+
+    await db.query('DELETE FROM image_library WHERE id = $1', [id]);
+    res.json({ success: true, message: 'Image deleted.' });
+  } catch (err) {
+    console.error('Error deleting image from library:', err);
+    res.status(500).json({ success: false, message: 'Failed to delete image.' });
   }
 });
 
@@ -365,6 +442,21 @@ app.get('/api/google-reviews', async (req, res) => {
   }
 });
 
+// Upload error handler
+app.use((err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+    if (err.code === 'LIMIT_FILE_SIZE') {
+      return res.status(413).json({ success: false, message: 'Image must be smaller than 10MB.' });
+    }
+    return res.status(400).json({ success: false, message: 'Upload failed. Please try again.' });
+  }
+
+  if (err && err.code === 'INVALID_FILE_TYPE') {
+    return res.status(400).json({ success: false, message: err.message });
+  }
+
+  return next(err);
+});
 
 const IS_VERCEL = process.env.VERCEL === '1';
 

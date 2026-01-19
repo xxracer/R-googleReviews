@@ -10,15 +10,30 @@ const API_URL = '/api/instructors';
 
 const UpdateInstructors = () => {
   const [instructors, setInstructors] = useState([]);
-  const [formData, setFormData] = useState({ name: '', bio: '', image: '' });
+  const [formData, setFormData] = useState({ name: '', title: '', bio: '', image: '' });
   const [editingId, setEditingId] = useState(null);
   const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState('');
+
+  const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
+  const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
+    if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+      setUploadError('Only JPG, PNG, or WebP files are allowed.');
+      return;
+    }
+
+    if (file.size > MAX_IMAGE_BYTES) {
+      setUploadError('Image must be smaller than 10MB.');
+      return;
+    }
+
     setUploading(true);
+    setUploadError('');
     const uploadFormData = new FormData();
     uploadFormData.append('image', file);
 
@@ -32,11 +47,13 @@ const UpdateInstructors = () => {
           setFormData({ ...formData, image: data.url });
         } else {
           console.error('Upload failed:', data.message);
+          setUploadError(data.message || 'Image upload failed.');
         }
         setUploading(false);
       })
       .catch(err => {
         console.error('Error uploading file:', err);
+        setUploadError('Image upload failed. Please try again.');
         setUploading(false);
       });
   };
@@ -77,7 +94,12 @@ const UpdateInstructors = () => {
 
   const handleEdit = (instructor) => {
     setEditingId(instructor.id);
-    setFormData({ name: instructor.name, bio: instructor.bio, image: instructor.image });
+    setFormData({
+      name: instructor.name,
+      title: instructor.title || '',
+      bio: instructor.bio,
+      image: instructor.image
+    });
   };
 
   const handleDelete = (id) => {
@@ -90,7 +112,8 @@ const UpdateInstructors = () => {
 
   const resetForm = () => {
     setEditingId(null);
-    setFormData({ name: '', bio: '', image: '' });
+    setFormData({ name: '', title: '', bio: '', image: '' });
+    setUploadError('');
   };
 
   return (
@@ -106,6 +129,13 @@ const UpdateInstructors = () => {
             value={formData.name}
             onChange={handleInputChange}
             required
+          />
+          <input
+            type="text"
+            name="title"
+            placeholder="Title (e.g., Head Coach)"
+            value={formData.title}
+            onChange={handleInputChange}
           />
           <ReactQuill
             theme="snow"
@@ -128,9 +158,10 @@ const UpdateInstructors = () => {
               type="file"
               name="imageFile"
               onChange={handleFileChange}
-              accept="image/jpeg, image/png"
+              accept="image/jpeg, image/png, image/webp"
             />
             {uploading && <p>Uploading...</p>}
+            {uploadError && <p className="upload-error">{uploadError}</p>}
             {formData.image && (
               <div className="image-preview">
                 <p>Current Image:</p>
@@ -151,7 +182,10 @@ const UpdateInstructors = () => {
           {instructors.map(instructor => (
             <div key={instructor.id} className="instructor-list-item">
               <img src={instructor.image} alt={instructor.name} className="instructor-list-image" />
-              <span className="instructor-list-name">{instructor.name}</span>
+              <div className="instructor-list-details">
+                <span className="instructor-list-name">{instructor.name}</span>
+                {instructor.title && <span className="instructor-list-title">{instructor.title}</span>}
+              </div>
               <div className="instructor-list-actions">
                 <button onClick={() => handleEdit(instructor)}>Edit</button>
                 <button onClick={() => handleDelete(instructor.id)} className="delete-btn">Delete</button>

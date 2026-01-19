@@ -86,6 +86,7 @@ const Instructors = () => {
           </div>
           <div className="instructor-bio">
             <h2>{instructor.name}</h2>
+            {instructor.title && <p className="instructor-title">{instructor.title}</p>}
             <div
               className="instructor-bio-content"
               dangerouslySetInnerHTML={{ __html: parseBio(instructor.bio) }}
